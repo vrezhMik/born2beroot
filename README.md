@@ -94,9 +94,9 @@
 <p> At first switch to root<br>
   Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.
 </p>
+<h2>Installing sudo</h2>
 ```
 $ su -
-Password :
 ```
 <p>
   Now we need to install the sudo command<br>
@@ -110,5 +110,26 @@ $ apt install sudo
   There are also aptitude that can be used on same purpose. Here are their <a href="https://www.tecmint.com/difference-between-apt-and-aptitude/#:~:text=While%20apt%2Dget%20handles%20all,marking%20a%20package%20to%20be">difference</a>.
 </p> 
 
+<p>Check whether sudo was installed</p>
+```
+$ dpkg -l | grep sudo
+```
+<p>You can use this command to check any program</p>
 
-  
+<h2>Adding user </h2>
+<p>Add your user to sudo group</p>
+```
+$ adduser <yourusername> sudo 
+```
+OR
+```
+$ usermod -aG sudo <yourusername>
+```
+<p> Check usermod flags by following command</p>
+```
+$ man usermod
+```
+<p>Check if your user were added to sudo group </p>
+```
+$ getent group sudo
+```
