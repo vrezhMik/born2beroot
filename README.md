@@ -5,6 +5,10 @@
    </li>
   <li>
     <a href="#sudo">Installing sudo and adding users</a>
+  </li>
+  <li>
+    <a href="#ssh">Installing SSH</a>
+  </li>
 </ol>
 
 <h1 id="install">1.Installation</h1>
@@ -116,10 +120,10 @@ $ apt install sudo
 ```
 $ dpkg -l | grep sudo
 ```
-<p>You can use this command to check any program</p>
+<p>You can use this command to check any program.</p>
 
 <h2>Adding user </h2>
-<p>Add your user to sudo group</p>
+<p>Add your user to sudo group.</p>
 
 ```
 $ adduser <yourusername> sudo 
@@ -134,8 +138,65 @@ $ usermod -aG sudo <yourusername>
 ```
 $ man usermod
 ```
-<p>Check if your user were added to sudo group </p>
+<p>Check if your user were added to sudo group.</p>
 
 ```
 $ getent group sudo
 ```
+<p>Now we need to give sudo privilege to our user.</p>
+
+```
+$ sudo visudo
+```
+<p>Add this command on line 21. </p>
+
+```
+<yourusername> ALL=(ALL)ALL
+```
+<p>!OPTIONAL. Installing vim .</p>
+
+```
+$ sudo apt install vim 
+```
+<br>
+<br>
+<h1 id='ssh'>Installing SSH</h1>
+<p>Before installing any program update and upgrade your system </p>
+
+```
+$ sudo apt-get update
+$ sudo apt-get upgrade
+```
+<p>Now we are ready to install SSH <br> <a href="https://www.techtarget.com/searchsecurity/definition/Secure-Shell">Here</a> you can learn what is SSH. You will need this on evaluation.</p>
+
+```
+$ sudo apt install openssh-server
+```
+<p>Check whether SSH was installed</p>
+
+```
+$ dpkg -l | grep sudo
+```
+<p>Check SSH status </p>
+
+```
+$ sudo systemctl status ssh
+```
+<p> Now we need to change the SSH default port from 22 to 4242.<br>Read about <a href="https://www.techtarget.com/searchnetworking/definition/port#:~:text=A%20port%20in%20networking%20is,that%20peripheral%20hardware%20plugs%20into.">ports</a></p>
+
+```
+$ sudo nano /etc/ssh/sshd_config
+```
+OR (If vim is installed)s
+
+```
+$ sudo vim /etc/ssh/sshd_config
+```
+
+<p>Change Line :<br>
+  <b>#Port 22</b><br>
+  to <br>
+  <b>Port 4242</b>
+</p>
+
+
