@@ -199,4 +199,15 @@ $ sudo vim /etc/ssh/sshd_config
   <b>Port 4242</b>
 </p>
 
+<p>Check whether port has been changed</p>
+
+```
+$ sudo grep Port /etc/ssh/sshd_config
+```
+
+<p>Restart SSH</p>
+
+```
+$ sudo service ssh restart
+```
 
