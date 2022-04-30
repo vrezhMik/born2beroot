@@ -108,7 +108,7 @@ Sudo stands for either "substitute user do" or "super user do" and it allows you
 $ apt install sudo
 ```
 <p>apt stands for Advanced Package Tool. It will help you to install packages you need. <br>
-  There are also aptitude that can be used on same purpose. Here are their <a href="https://www.tecmint.com/difference-between-apt-and-aptitude/#:~:text=While%20apt%2Dget%20handles%20all,marking%20a%20package%20to%20be">difference</a>.
+  There are also aptitude that can be used on same purpose. Here are their <a href="https://www.tecmint.com/difference-between-apt-and-aptitude/#:~:text=While%20apt%2Dget%20handles%20all,marking%20a%20package%20to%20be">difference</a>. You will need this for the defence.
 </p> 
 
 <p>Check whether sudo was installed</p>
@@ -129,7 +129,7 @@ OR
 ```
 $ usermod -aG sudo <yourusername>
 ```
-<p> Check usermod flags by following command</p>
+<p> Check usermod flags by following command. You might need this for the defence.</p>
 
 ```
 $ man usermod
