@@ -9,6 +9,9 @@
   <li>
     <a href="#ssh">Installing SSH</a>
   </li>
+    <li>
+    <a href="#pw">Setting Password/a>
+  </li>
 </ol>
 
 <h1 id="install">1.Installation</h1>
@@ -160,7 +163,7 @@ $ sudo apt install vim
 ```
 <br>
 <br>
-<h1 id='ssh'>Installing SSH</h1>
+<h1 id='ssh'>3.Installing SSH</h1>
 <p>Before installing any program update and upgrade your system </p>
 
 ```
@@ -301,3 +304,108 @@ $ ssh <yourusername>@127.0.0.1 -p 4242
  ```
  $ exit
  ```
+<br>
+<br>
+<h1 class="pw">4.Setting Password</h1>
+<p>Read <a href="https://ostechnix.com/how-to-set-password-policies-in-linux/">this</a> article about passwords in Linux</p>
+<p>In this case we need to install password quality checking library</p>
+
+```
+$ sudo apt-get install libpam-pwquality
+```
+<p>We need to change password length</p>
+
+```
+sudo vim /etc/pam.d/common-password
+```
+<p>Change 25th line so it looks like this</p>
+
+```
+password    requisite   pam_pwquality.so retry=3 lcredit =-1 ucredit=-1 dcredit=-1 maxrepeat=3 usercheck=0 difok=7 enforce_for_root
+```
+
+<p>Change 26th line so it looks like this</p>
+
+```
+password [success=1 default=ignore] pam_unix.so obscure use_authtok try_first_pass yessrypt minlen=10
+```
+<p>Time to chnage password exparation dates</p>
+
+```
+$ sudo nano /etc/login.defs
+```
+
+<p>Change this part</p>
+
+```
+PASS_MAX_DAYS 9999
+PASS_MIN_DAYS 0
+PASS_WARN_AGE 7
+```
+<p>To this</p>
+
+```
+PASS_MAX_DAYS 30
+PASS_MIN_DAYS 2
+PASS_WARN_AGE 7
+```
+<p>This changes will apply to any user you create after.<br>
+  To change this setting for already created users you have to change their days manualy.</p>
+  
+```
+$ sudo /etc/shadow
+```
+ 
+<p>Reboot your machin to apply the changes</p>
+
+```
+$ sudo reboot
+```
+<br>
+<br>
+<h2> Group Creation</h2>
+
+<p>To create a group we do </p>
+
+``` 
+$sudo groupadd <groupname>
+```
+<p>Check if group created</p>
+
+```
+$ sudo getent group
+```
+
+<p>Now we will create a user and asign it to a group </p>
+
+<p>To list all users do :</p>
+
+```
+$ sudo cut -d: -f1 /etc/passwd
+```
+<p>To create a user</p>
+
+```
+$ sudo adduser <newusername>
+```
+<p>Add user to the group</p>
+
+```
+$ sudo usermod -aG <groupname> <newusername>
+```
+<p>To check is the user in the group just do: </p>
+
+```
+$ getent group <groupname>
+```
+<p>To check all groups of your curent using user do :</p>
+
+```
+$ groups
+```
+<p>We also can check password rules for any user</p>
+
+```
+$ sudo -l <username>
+```
+<p>Now we need to configure <a href="https://help.ubuntu.com/community/Sudoers">sudoers</a> group.</p>
