@@ -17,7 +17,7 @@
   <li>
     <a href="#ssh">Installing SSH</a>
     <ul>
-      <li><a href="#ufw">UFWinstallation</a></li>
+      <li><a href="#ufw">UFW installation</a></li>
       <li><a href="#conn">SSH connection</a></li>
     </ul>
   </li>
@@ -30,6 +30,16 @@
   </li>
     <li>
     <a href="#cont"> Contrab configuration</a>
+  </li>
+  <li>
+  <a id="bonus">Bonus</a>
+  <ul>
+    <li><a href="#l">Lighttpd server installation</a><li>
+    <li><a href="#md">MariaDB Installation</a><li>
+    <li><a href="#php">PHP Installation</a><li>
+    <li><a href="#wp">WordPress Installation</a><li>
+    <li><a href="#confl">Lighttpd Configuration</a><li>
+  </ul>
   </li>
 </ol>
 
@@ -511,4 +521,116 @@ $ sudo crontab -u root -e
 # and add this line at the end of file
 */10 * * * * /usr/local/bin/monitoring.sh
 ```
+<br>
+<br>
+<h1 id="bonus">Bonus</h1>
+<p>Bonus installation <a href="https://www.youtube.com/watch?v=2w-2MX5QrQw">here</a><p>
+<br><br>
+ <h2 id="l">Lighttpd server installation</h2>
+ <p>We need to install lighttpd on our machine</p>
+ 
+ ```
+ $ sudo apt-get install lighttpd
+ ```
+ <p> Check is it installed </p>
+ 
+ ```
+ $ dpkg -l | grep lighttpd
+ ```
+ <p> Now we need to add it's port to ufw</p>
+ 
+```
+ $ sudo ufw allow 80
+```
+<br><br>
+<h2 id="md">MariaDB installation</h2>
+<p>We need database to store our web site data</p>
 
+```
+$ sudo apt install mariadb-server
+$ dpkg -l | grep mariadb-server
+$ sudo mysql_secure_installation
+```
+<p> After installation let's run mariaDB and create our database</p>
+
+```
+$ sudo mariadb
+MariaDB [(none)]> CREATE DATABASE <databasename>;
+MariaDB [(none)]> GRANT ALL ON <databasename>.* TO '<username>'@'localhost' IDENTIFIED BY '<password>' WITH GRANT OPTION;
+MariaDB [(none)]> FLUSH PRIVILEGES;
+MariaDB [(none)]> exit
+```
+<p> Now we can log in to mariaDB as user </p>
+
+```
+$ mariadb -u <username-2> -p
+Enter password: <password-2>
+MariaDB [(none)]> SHOW DATABASES;
+```
+<p> This command should write your database name.<br>Now you can leave.</p>
+
+```
+MariaDB [(none)]> exit
+```
+<br>
+<br>
+<h2 id="php">PHP installation </h2>
+<p>WordPress is made on php language that's why we need to install it on our machine as well.</p>
+
+```
+$ sudo apt install php-cgi php-mysql
+$ dpkg -l | grep php
+```
+<br>
+<br>
+<h2 id="wp">Installing Wordpress</h2>
+<p>Wget is an program which helps to download files from the internet</p>
+
+```
+$ sudo apt install wget
+```
+<p> Now we can download wordpress and keep it in /var/www/html foulder</p>
+
+```
+$ sudo wget http://wordpress.org/latest.tar.gz -P /var/www/html
+```
+<p>It downloaded .tar.gz file which is like .zip file. We need to extract all files in the same directory</p>
+
+```
+$ sudo tar -xzvf /var/www/html/latest.tar.gz
+```
+<p>Time to delete .tar.gz file</p>
+
+```
+$ sudo rm /var/www/html/latest.tar.gz
+```
+<p>Now we need to configure wp-config file which is located at /var/www/html/wordpres/wp-config.php path</p>
+
+```
+$ sudo vim /var/www/html/wordpress/wp-config.php
+```
+<p>Find this rows and put the values smae as you made the in mariadb</p>
+
+```
+define( 'DB_NAME', 'database_name_here' );
+define( 'DB_USER', 'username_here' );
+define( 'DB_PASSWORD', 'password_here' );
+```
+<br>
+<br>
+<h2 id="confl">Lighttpd Configuration</h2>
+<p> We need to enable some modules of lighttpd library</p>
+
+```
+$ sudo lighty-enable-mod fastcgi
+$ sudo lighty-enable-mod fastcgi-php
+$ sudo service lighttpd force-reload
+```
+<p> Now reboot your machine</p>
+
+```
+$ sudo reboot
+```
+<p>If you did everything right you can type http://127.0.0.1 on your Mac browser and wordpress installation will start for you. Let me know if something went wrong. <br>
+  Cheers 🥂
+</p>
