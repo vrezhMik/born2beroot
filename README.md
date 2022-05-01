@@ -10,7 +10,7 @@
     <a href="#ssh">Installing SSH</a>
   </li>
     <li>
-    <a href="#pw">Setting Password/a>
+    <a href="#pw">Setting Password</a>
   </li>
 </ol>
 
