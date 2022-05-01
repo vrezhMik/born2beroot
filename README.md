@@ -306,7 +306,7 @@ $ ssh <yourusername>@127.0.0.1 -p 4242
  ```
 <br>
 <br>
-<h1 class="pw">4.Setting Password</h1>
+<h1 id="pw">4.Setting Password</h1>
 <p>Read <a href="https://ostechnix.com/how-to-set-password-policies-in-linux/">this</a> article about passwords in Linux</p>
 <p>In this case we need to install password quality checking library</p>
 
