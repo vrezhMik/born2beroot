@@ -416,3 +416,48 @@ $ groups
 $ sudo -l <username>
 ```
 <p>Now we need to configure <a href="https://help.ubuntu.com/community/Sudoers">sudoers</a> group.</p>
+
+```
+$ sudo vim /etc/sudoers
+```
+<p>Add this from 12th row</p>
+
+```
+Defaults     passwd_tries=3
+Defaults     badpass_message="Wrong pass buddy!"
+Defaults	   logfile="/var/log/sudo/sudo.log"
+Defaults	   log_input,log_output
+Defaults     requiretty
+```
+<br>
+<br>
+<h2>Contrab configuration</h2>
+<p>Time to change <a href="https://www.guru99.com/crontab-in-linux-with-examples.html">contrab</a> settings</p>
+<p>At first we need to install netstat tools</p>
+
+```
+$ sudo apt-get install net-tools
+```
+<p>Create monitoring directory in /usr/local/ and monitoring.sh in it</p>
+
+```
+$ mkdir /usr/local/monitoring
+$ touch /usr/local/monitoring/monitoring.sh
+```
+<p>Put this script in monitoring.sh </p>
+
+```
+#!/bin/bash
+wall $'#Architecture: ' `hostnamectl | grep "Operating System" | cut -d ' ' -f5- ` `awk -F':' '/^model name/ {print $2}' /proc/cpuinfo | uniq | sed -e 's/^[ \t]*//'` `arch` \
+$'\n#CPU physical: '`cat /proc/cpuinfo | grep processor | wc -l` \
+$'\n#vCPU:  '`cat /proc/cpuinfo | grep processor | wc -l` \
+$'\n'`free -m | awk 'NR==2{printf "#Memory Usage: %s/%sMB (%.2f%%)", $3,$2,$3*100/$2 }'` \
+$'\n'`df -h | awk '$NF=="/"{printf "#Disk Usage: %d/%dGB (%s)", $3,$2,$5}'` \
+$'\n'`top -bn1 | grep load | awk '{printf "#CPU Load: %.2f\n", $(NF-2)}'` \
+$'\n#Last boot: ' `who -b | awk '{print $3" "$4" "$5}'` \
+$'\n#LVM use: ' `lsblk |grep lvm | awk '{if ($1) {print "yes";exit;} else {print "no"} }'` \
+$'\n#Connection TCP:' `netstat -an | grep ESTABLISHED |  wc -l` \
+$'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
+$'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
+$'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
+```
