@@ -12,6 +12,10 @@
     <li>
     <a href="#pw">Setting Password</a>
   </li>
+  </li>
+    <li>
+    <a href="#contrab">  Contrab configuration</a>
+  </li>
 </ol>
 
 <h1 id="install">1.Installation</h1>
@@ -431,7 +435,7 @@ Defaults     requiretty
 ```
 <br>
 <br>
-<h2>Contrab configuration</h2>
+<h1 id="contrab">Contrab configuration</h1>
 <p>Time to change <a href="https://www.guru99.com/crontab-in-linux-with-examples.html">contrab</a> settings</p>
 <p>At first we need to install netstat tools</p>
 
@@ -461,3 +465,35 @@ $'\n#User log: ' `who | cut -d " " -f 1 | sort -u | wc -l` \
 $'\nNetwork: IP ' `hostname -I`"("`ip a | grep link/ether | awk '{print $2}'`")" \
 $'\n#Sudo:  ' `grep 'sudo ' /var/log/auth.log | wc -l`
 ```
+<p>We need to add a rule that this script will ran without sudo password</p>
+
+```
+$ sudo visudo 
+```
+<p>Find this line :<br>
+  # Allow members of group sudo to execute any command<br>
+  and add this
+ </p>
+
+```
+<yourusername> ALL=(ALL) NOPASSWD: /usr/local/bin/monitoring.sh
+```
+<p>Time for reboot</p>
+
+```
+$ sudo reboot
+```
+
+<p>Run monitoring script to test</p>
+
+```
+$ bash /usr/local/bin/monitoring.sh
+```
+<p> We have to make monitoring work every 10 minutes </p>
+
+```
+$ sudo crontab -u root -e
+# and add this line at the end of file
+*/10 * * * * /usr/local/bin/monitoring.sh
+```
+
