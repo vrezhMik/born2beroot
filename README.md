@@ -20,6 +20,8 @@
   <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a><br>
   <a href="https://www.debian.org/download">Debian OS </a><br>
  </p>
+ <br>
+ <br>
 <h2><b>Virtual Box Installation </b></h2>
 <img width="845" alt="Screen Shot 2022-04-30 at 23 14 47" src="https://user-images.githubusercontent.com/38406975/166120976-981e0d2a-e66d-4ca7-9545-71bfae9d6596.png">
 <p align = "center">After installation of VBox open the app and press the "New" button</p>
@@ -101,6 +103,8 @@
 <p> At first switch to root<br>
   Root is the superuser account in Unix and Linux. It is a user account for administrative purposes, and typically has the highest access rights on the system.
 </p>
+<br>
+<br>
 <h2>Installing sudo</h2>
 
 ```
@@ -124,7 +128,8 @@ $ apt install sudo
 $ dpkg -l | grep sudo
 ```
 <p>You can use this command to check any program.</p>
-
+<br>
+<br>
 <h2>Adding user </h2>
 <p>Add your user to sudo group.</p>
 
@@ -269,6 +274,8 @@ App is a file where multiple ports are listed.
 ```
 $ sudo ufw delete <rownumber>
 ```
+<br>
+<br>
 
 <h2> Connection with SSH server </h2>
 
