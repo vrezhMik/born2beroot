@@ -283,10 +283,10 @@ For this let's allow our VM to use 4242 port. We need to change VirtualBox setti
 $ sudo systemctl restart ssh
 ```
 
-<p>Let's check ssh status</p>
+<p>Let's check ssh status.</p>
 
 ```
-$sudo service sshd status
+$ sudo service sshd status
 ```
 
 <p>Our server is ready for connection. You can open terminal on your Mac and connect to your Debian server</p>
