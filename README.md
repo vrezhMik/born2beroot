@@ -2,19 +2,34 @@
 <ol>
   <li>
     <a href="#install">Instalation</a>
+    <ul>
+      <li><a href="#vb">Virtual Box installation</a></li>
+      <li><a href="#d">Debian installation</a></li>
+    </ul>
    </li>
   <li>
     <a href="#sudo">Installing sudo and adding users</a>
+    <ul>
+      <li><a href="#si">Sudo installation</a></li>
+      <li><a href="#us">Adding User</a></li>
+    </ul>
   </li>
   <li>
     <a href="#ssh">Installing SSH</a>
+    <ul>
+      <li><a href="#ufw">UFWinstallation</a></li>
+      <li><a href="#conn">SSH connection</a></li>
+    </ul>
   </li>
     <li>
     <a href="#pw">Setting Password</a>
+      <ul>
+      <li><a href="#g">Group creation</a></li>
+    </ul>
   </li>
   </li>
     <li>
-    <a href="#contrab">  Contrab configuration</a>
+    <a href="#cont"> Contrab configuration</a>
   </li>
 </ol>
 
@@ -26,7 +41,7 @@
  </p>
  <br>
  <br>
-<h2><b>Virtual Box Installation </b></h2>
+<h2 id="vb"><b>Virtual Box Installation </b></h2>
 <img width="845" alt="Screen Shot 2022-04-30 at 23 14 47" src="https://user-images.githubusercontent.com/38406975/166120976-981e0d2a-e66d-4ca7-9545-71bfae9d6596.png">
 <p align = "center">After installation of VBox open the app and press the "New" button</p>
 <img width="659" alt="Screen Shot 2022-04-30 at 23 15 01" src="https://user-images.githubusercontent.com/38406975/166121213-4198c10f-bb9e-4520-834a-43cf731b4e15.png">
@@ -51,7 +66,7 @@
 <p align = "center">Now click on start to turn on your machine</p>
 <br>
 <br>
-<h2>Debian Installation </h2>
+<h2 id="d">Debian Installation </h2>
 <img width="627" alt="Screen Shot 2022-04-30 at 23 19 50" src="https://user-images.githubusercontent.com/38406975/166121478-e510b436-77b3-483a-bea5-567866ec0f73.png">
 <p align = "center">Choose Install to start installtion without graphical interface</p>
 <img width="795" alt="Screen Shot 2022-04-30 at 23 20 05" src="https://user-images.githubusercontent.com/38406975/166121497-f1dfa87d-7768-44a7-a730-5326169f989b.png">
@@ -109,7 +124,7 @@
 </p>
 <br>
 <br>
-<h2>Installing sudo</h2>
+<h2 id="si">Installing sudo</h2>
 
 ```
 $ su
@@ -134,7 +149,7 @@ $ dpkg -l | grep sudo
 <p>You can use this command to check any program.</p>
 <br>
 <br>
-<h2>Adding user </h2>
+<h2 id="us">Adding user </h2>
 <p>Add your user to sudo group.</p>
 
 ```
@@ -226,7 +241,7 @@ $ sudo service ssh restart
 <br>
 <br>
 
-<h2>Firewall installation </h2>
+<h2 id="ufw">Firewall installation </h2>
 <p>We need <a href="https://en.wikipedia.org/wiki/Uncomplicated_Firewall">firewall</a> to manage our ports. We are going to use UFW</p>
 
 ```
@@ -261,7 +276,7 @@ App is a file where multiple ports are listed.
  ```
  <p>You can see that 4242 port is added as well as 22/tcp (ssh default port which is written in ssh app file)</p>
  
- <h2>During the defencion you will be asked to add and remove some ports</h2>
+ <h3>During the defencion you will be asked to add and remove some ports</h3>
  <p>Adding</p>
  
  ```
@@ -281,7 +296,7 @@ $ sudo ufw delete <rownumber>
 <br>
 <br>
 
-<h2> Connection with SSH server </h2>
+<h2 id="conn"> Connection with SSH server </h2>
 
 <p>Now as we installed ssh and configured our firewall we can use this virtual machine as a server and connect to it from other computers.<br>
 For this let's allow our VM to use 4242 port. We need to change VirtualBox settings.</p>
@@ -374,7 +389,7 @@ $ sudo reboot
 ```
 <br>
 <br>
-<h2> Group Creation</h2>
+<h2 id="g"> Group Creation</h2>
 
 <p>To create a group we do </p>
 
@@ -435,7 +450,7 @@ Defaults     requiretty
 ```
 <br>
 <br>
-<h1 id="contrab">Contrab configuration</h1>
+<h1 id="cont">5.Contrab configuration</h1>
 <p>Time to change <a href="https://www.guru99.com/crontab-in-linux-with-examples.html">contrab</a> settings</p>
 <p>At first we need to install netstat tools</p>
 
