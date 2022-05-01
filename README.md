@@ -34,11 +34,11 @@
   <li>
   <a id="bonus">Bonus</a>
   <ul>
-    <li><a href="#l">Lighttpd server installation</a><li>
-    <li><a href="#md">MariaDB Installation</a><li>
-    <li><a href="#php">PHP Installation</a><li>
-    <li><a href="#wp">WordPress Installation</a><li>
-    <li><a href="#confl">Lighttpd Configuration</a><li>
+    <li><a href="#l">Lighttpd server installation</a></li>
+    <li><a href="#md">MariaDB Installation</a></li>
+    <li><a href="#php">PHP Installation</a></li>
+    <li><a href="#wp">WordPress Installation</a></li>
+    <li><a href="#confl">Lighttpd Configuration</a></li>
   </ul>
   </li>
 </ol>
