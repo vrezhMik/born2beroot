@@ -187,7 +187,7 @@ $ sudo systemctl status ssh
 ```
 $ sudo nano /etc/ssh/sshd_config
 ```
-OR (If vim is installed)s
+OR (If vim is installed)
 
 ```
 $ sudo vim /etc/ssh/sshd_config
@@ -210,4 +210,94 @@ $ sudo grep Port /etc/ssh/sshd_config
 ```
 $ sudo service ssh restart
 ```
+<p>Reboot your computer to apply all changes </p>
+<br>
+<br>
 
+<h2>Firewall installation </h2>
+<p>We need <a href="https://en.wikipedia.org/wiki/Uncomplicated_Firewall">firewall</a> to manage our ports. We are going to use UFW</p>
+
+```
+$ apt-get install ufw
+```
+
+<p>After the installation enable the ufw </p>
+
+```
+$ sudo ufw enable
+```
+
+<p>Let's check all ports that are allowed by the firewall</p>
+
+```
+$ sudo ufw status 
+```
+<p>It is empyt for now, but we are getting a message that says that firwall is active<br>
+  Let's add ssh ports to firewall. We can add a specific port (8080,8888,5555,14...) or app (ssh, apache full ...).<br>
+App is a file where multiple ports are listed.
+</p>
+  
+ ```
+ $ sudo ufw allow ssh
+ $ sudo ufw allow 4242
+ ```
+ 
+ <p>Check the ufw status now</p>
+ 
+ ```
+ $ sudo ufw status 
+ ```
+ <p>You can see that 4242 port is added as well as 22/tcp (ssh default port which is written in ssh app file)</p>
+ 
+ <h2>During the defencion you will be asked to add and remove some ports</h2>
+ <p>Adding</p>
+ 
+ ```
+ $ sudo ufw allow <portnumber>
+ ```
+ 
+ <p>Looking at table its number. </p>
+ 
+ ```
+ $ sudo ufw status numbered
+ ```
+<p>Deleting</p>
+
+```
+$ sudo ufw delete <rownumber>
+```
+
+<h2> Connection with SSH server </h2>
+
+<p>Now as we installed ssh and configured our firewall we can use this virtual machine as a server and connect to it from other computers.<br>
+For this let's allow our VM to use 4242 port. We need to change VirtualBox settings.</p>
+<img width="848" alt="Screen Shot 2022-05-01 at 11 46 20" src="https://user-images.githubusercontent.com/38406975/166137143-651e29ce-c726-46f4-9901-4901c078b376.png">
+<p align="center">Go to your VBbox. Choose your machine and choose setting.</p>
+<img width="641" alt="Screen Shot 2022-05-01 at 11 46 33" src="https://user-images.githubusercontent.com/38406975/166137145-ca450fd3-57ff-4466-ac4a-b7c247f79e12.png">
+<p align="center">Go to Network section. Press on advanced and press Port Forwarding button.</p>
+<img width="457" alt="Screen Shot 2022-05-01 at 11 46 59" src="https://user-images.githubusercontent.com/38406975/166137238-0e14cbf3-825c-426e-94cb-269caa8fdda2.png">
+<p align="center">In the opened window press on "New" button and write 4242 on both port sections.</p>
+<p>We need to restart ssh server</p>
+
+```
+$ sudo systemctl restart ssh
+```
+
+<p>Let's check ssh status</p>
+
+```
+$sudo service sshd status
+```
+
+<p>Our server is ready for connection. You can open terminal on your Mac and connect to your Debian server</p>
+
+```
+#this code is on MacOs
+$ ssh <yourusername>@127.0.0.1 -p 4242
+```
+<p>As you entered you can continue the project by your Mac terminal.<br>
+  To close the connection do: </p>
+  
+ ```
+ $ exit
+ ```
